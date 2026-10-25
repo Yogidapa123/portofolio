@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent: #2c67ed;
+  }
+}
+
+/* Custom Space Background Animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-2deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(44, 103, 237, 0.35), inset 0 0 15px rgba(44, 103, 237, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(44, 103, 237, 0.65), inset 0 0 25px rgba(44, 103, 237, 0.4); }
+}
+
+@keyframes meteor {
+  0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(215deg) translateX(-800px); opacity: 0; }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-twinkle-1 { animation: twinkle 3s ease-in-out infinite; }
+.animate-twinkle-2 { animation: twinkle 4.5s ease-in-out infinite 1.5s; }
+.animate-twinkle-3 { animation: twinkle 2.2s ease-in-out infinite 0.7s; }
+.animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+.animate-float-reverse { animation: floatReverse 7s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+.animate-orbit { animation: orbitSpin 30s linear infinite; }
+.animate-orbit-reverse { animation: orbitSpin 45s linear infinite reverse; }
+
+/* Custom Glow Classes */
+.glow-accent {
+  box-shadow: 0 0 25px -4px rgba(44, 103, 237, 0.55);
+}
+
+.glow-accent-lg {
+  box-shadow: 0 0 50px -5px rgba(44, 103, 237, 0.65);
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 20px rgba(44, 103, 237, 0.75);
+}
+
+/* Glassmorphism Classes */
+.glass-dark {
+  background: rgba(13, 18, 38, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(44, 103, 237, 0.25);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(44, 103, 237, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2c67ed80;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c67ed;
+}
