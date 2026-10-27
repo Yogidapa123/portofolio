@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { LinkedinIcon } from './SocialIcons'
 import { PERSONAL_INFO } from '../data/portfolioData'
+import { InteractiveLanyardBadge } from './InteractiveLanyardBadge'
 
 interface HeroProps {
   darkMode: boolean
@@ -226,94 +227,50 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onOpenCvModal, onOpenPortf
             </div>
           </motion.div>
 
-          {/* Right Column: Cosmic Profile Portrait & Holographic Frame */}
+          {/* Right Column: Interactive Lanyard Hanging Badge (Bisa ditarik-tarik!) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
             className="lg:col-span-5 flex justify-center items-center relative"
           >
             {/* Outer Rotating Glowing Cosmic Orbit */}
-            <div className="absolute w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full border border-dashed border-[#2c67ed]/40 animate-orbit pointer-events-none" />
-            <div className="absolute w-[390px] h-[390px] sm:w-[470px] sm:h-[470px] rounded-full border border-blue-400/20 animate-orbit-reverse pointer-events-none hidden sm:block" />
+            <div className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] rounded-full border border-dashed border-[#2c67ed]/35 animate-orbit pointer-events-none" />
+            <div className="absolute w-[390px] h-[390px] sm:w-[500px] sm:h-[500px] rounded-full border border-blue-400/20 animate-orbit-reverse pointer-events-none hidden sm:block" />
 
             {/* Glowing Backdrop Aura */}
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#2c67ed]/40 via-blue-500/20 to-indigo-600/30 blur-3xl pointer-events-none" />
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#2c67ed]/30 via-blue-500/20 to-indigo-600/25 blur-3xl pointer-events-none" />
 
-            {/* Portrait Container */}
-            <div className="relative group">
-              {/* Inner Glowing Ring */}
-              <div className="absolute -inset-2 rounded-3xl sm:rounded-[36px] bg-gradient-to-tr from-[#2c67ed] via-cyan-400 to-indigo-600 opacity-80 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500" />
+            {/* Interactive Physical Lanyard Badge */}
+            <InteractiveLanyardBadge darkMode={darkMode} />
 
-              {/* Holographic Border Box */}
-              <div
-                className={`relative rounded-3xl sm:rounded-[32px] p-2 sm:p-2.5 transition-all duration-500 ${
-                  darkMode
-                    ? 'bg-[#090f26] border border-[#2c67ed]/60 shadow-[0_0_35px_rgba(44,103,237,0.5)]'
-                    : 'bg-white border-2 border-[#2c67ed]/50 shadow-[0_10px_40px_rgba(44,103,237,0.35)]'
-                }`}
-              >
-                {/* Profile Image */}
-                <div className="relative w-64 h-80 sm:w-76 sm:h-96 rounded-2xl sm:rounded-[26px] overflow-hidden bg-slate-900">
-                  <img
-                    src={PERSONAL_INFO.photoUrl}
-                    alt={PERSONAL_INFO.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
+            {/* Cute Mini Orbiting Satellite */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+              className="absolute w-[370px] h-[370px] sm:w-[460px] sm:h-[460px] pointer-events-none hidden sm:block"
+            >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-cyan-400/50 text-[10px] font-bold text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.7)]">
+                <span className="animate-spin" style={{ animationDuration: '4s' }}>🛰️</span>
+                <span>Yogi-Sat 1</span>
+              </div>
+            </motion.div>
 
-                  {/* Glassmorphic Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Floating Badges on Photo */}
-                  <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl backdrop-blur-md bg-black/60 border border-white/20 text-white shadow-lg">
-                    <p className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                      Yogi Pratama N.
-                    </p>
-                    <p className="text-[11px] text-slate-300 truncate">
-                      Web Dev • UI/UX • Graphic • Admin
-                    </p>
-                  </div>
+            {/* Cute Floating Mini Planet */}
+            <motion.div
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 8, -8, 0],
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -bottom-3 -left-3 sm:-bottom-5 sm:-left-5 pointer-events-none z-20"
+            >
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-cyan-400 p-[1.5px] shadow-[0_0_20px_rgba(168,85,247,0.6)] flex items-center justify-center">
+                <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-sm sm:text-base">
+                  🪐
                 </div>
               </div>
-
-              {/* Floating Orbit Stat Badges */}
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className={`absolute -top-4 -right-4 sm:-right-6 px-3.5 py-2 rounded-2xl backdrop-blur-xl border text-xs font-bold shadow-xl flex items-center gap-2 ${
-                  darkMode
-                    ? 'bg-[#0e163b]/90 border-[#2c67ed]/60 text-white shadow-[0_0_20px_rgba(44,103,237,0.4)]'
-                    : 'bg-white/95 border-blue-300 text-slate-800 shadow-[0_6px_20px_rgba(44,103,237,0.25)]'
-                }`}
-              >
-                <div className="w-7 h-7 rounded-full bg-[#2c67ed] text-white flex items-center justify-center font-black text-xs shadow-md">
-                  ★
-                </div>
-                <div>
-                  <div className="text-[10px] opacity-70 leading-none">Status Lulus</div>
-                  <div className="text-xs font-extrabold text-[#2c67ed]">IPK 3.79 Cum Laude</div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className={`absolute -bottom-4 -left-4 sm:-left-6 px-3.5 py-2 rounded-2xl backdrop-blur-xl border text-xs font-bold shadow-xl flex items-center gap-2 ${
-                  darkMode
-                    ? 'bg-[#0e163b]/90 border-[#2c67ed]/60 text-white shadow-[0_0_20px_rgba(44,103,237,0.4)]'
-                    : 'bg-white/95 border-blue-300 text-slate-800 shadow-[0_6px_20px_rgba(44,103,237,0.25)]'
-                }`}
-              >
-                <div className="w-7 h-7 rounded-full bg-cyan-500 text-white flex items-center justify-center font-black text-xs shadow-md">
-                  🚀
-                </div>
-                <div>
-                  <div className="text-[10px] opacity-70 leading-none">Leadership</div>
-                  <div className="text-xs font-extrabold text-cyan-400">Ketua Himpunan HMIF</div>
-                </div>
-              </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 

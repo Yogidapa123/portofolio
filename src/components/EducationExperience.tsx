@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   GraduationCap,
@@ -14,6 +14,10 @@ import {
   Layers,
   Wrench,
   BookOpen,
+  Eye,
+  Camera,
+  X,
+  Maximize2,
 } from 'lucide-react'
 import {
   EDUCATION,
@@ -30,6 +34,20 @@ type TabType = 'all' | 'education' | 'experience' | 'organization' | 'skills'
 
 export const EducationExperience: React.FC<EducationExperienceProps> = ({ darkMode }) => {
   const [activeTab, setActiveTab] = useState<TabType>('all')
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string
+    title: string
+    caption?: string
+    role?: string
+  } | null>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedImage(null)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const tabs = [
     { id: 'all' as TabType, label: 'Semua Riwayat', icon: Layers },
@@ -215,55 +233,109 @@ export const EducationExperience: React.FC<EducationExperienceProps> = ({ darkMo
                 {WORK_EXPERIENCE.map((exp, idx) => (
                   <div
                     key={idx}
-                    className={`p-6 sm:p-7 rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:border-[#2c67ed] hover:-translate-y-1 ${
+                    className={`rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:border-[#2c67ed] hover:-translate-y-1 overflow-hidden group ${
                       darkMode
                         ? 'bg-[#0b122e]/90 border-[#2c67ed]/40 text-white shadow-[0_0_20px_rgba(44,103,237,0.2)] hover:shadow-[0_0_30px_rgba(44,103,237,0.4)]'
                         : 'bg-white/95 border-blue-200 text-slate-800 shadow-[0_8px_25px_rgba(44,103,237,0.12)] hover:shadow-[0_12px_35px_rgba(44,103,237,0.22)]'
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#2c67ed] text-white">
-                          {exp.type}
-                        </span>
-                        <span className={`text-xs font-semibold flex items-center gap-1 ${darkMode ? 'text-cyan-300' : 'text-[#2c67ed]'}`}>
-                          <Calendar className="w-3.5 h-3.5" />
-                          {exp.period}
-                        </span>
-                      </div>
+                      {/* Work Experience Photo Showcase */}
+                      {exp.imageUrl && (
+                        <div
+                          onClick={() =>
+                            setSelectedImage({
+                              url: exp.imageUrl!,
+                              title: exp.role,
+                              caption: exp.imageCaption,
+                              role: exp.company,
+                            })
+                          }
+                          className="relative w-full h-48 sm:h-56 overflow-hidden bg-slate-900 cursor-pointer"
+                        >
+                          <img
+                            src={exp.imageUrl}
+                            alt={exp.imageCaption || exp.role}
+                            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                              exp.imageUrl.includes('teknik-industri') || exp.imageUrl.includes('diskominfo')
+                                ? 'object-[center_20%]'
+                                : 'object-center'
+                            }`}
+                            loading="lazy"
+                          />
+                          {/* Dramatic Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                      <h4 className="text-lg sm:text-xl font-extrabold text-[#2c67ed] mb-1">
-                        {exp.role}
-                      </h4>
-                      <p className="text-sm font-semibold opacity-90 mb-4 flex items-center gap-1.5">
-                        <Building className="w-4 h-4 text-cyan-400" />
-                        {exp.company}
-                      </p>
+                          {/* Top-Right 'Lihat Foto' Button */}
+                          <div className="absolute top-3 right-3 opacity-90 group-hover:opacity-100 transition-opacity">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-lg">
+                              <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                              <span>Lihat Foto</span>
+                            </span>
+                          </div>
 
-                      <ul className="space-y-2.5 mb-6 text-xs sm:text-sm">
-                        {exp.highlights.map((item, hIdx) => (
-                          <li key={hIdx} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="w-4 h-4 text-[#2c67ed] shrink-0 mt-0.5" />
-                            <span className={darkMode ? 'text-slate-300' : 'text-slate-700'}>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                          {/* Image Caption at bottom */}
+                          {exp.imageCaption && (
+                            <div className="absolute bottom-2.5 left-3.5 right-3.5 pointer-events-none flex items-center gap-1.5 text-xs font-medium text-white/95 drop-shadow">
+                              <Camera className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                              <span className="truncate">{exp.imageCaption}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
-                    <div className="pt-4 border-t border-slate-700/30">
-                      <div className="flex flex-wrap gap-1.5">
-                        {exp.tech.map((t) => (
+                      <div className="p-6 sm:p-7">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#2c67ed] text-white shadow-sm">
+                            {exp.type}
+                          </span>
                           <span
-                            key={t}
-                            className={`px-2.5 py-1 rounded-md text-[11px] font-semibold border ${
-                              darkMode
-                                ? 'bg-white/5 border-slate-700 text-slate-300'
-                                : 'bg-slate-100 border-slate-300 text-slate-700'
+                            className={`text-xs font-semibold flex items-center gap-1 ${
+                              darkMode ? 'text-cyan-300' : 'text-[#2c67ed]'
                             }`}
                           >
-                            {t}
+                            <Calendar className="w-3.5 h-3.5" />
+                            {exp.period}
                           </span>
-                        ))}
+                        </div>
+
+                        <h4 className="text-lg sm:text-xl font-extrabold text-[#2c67ed] mb-1">
+                          {exp.role}
+                        </h4>
+                        <p className="text-sm font-semibold opacity-90 mb-4 flex items-center gap-1.5">
+                          <Building className="w-4 h-4 text-cyan-400 shrink-0" />
+                          {exp.company}
+                        </p>
+
+                        <ul className="space-y-2.5 mb-6 text-xs sm:text-sm">
+                          {exp.highlights.map((item, hIdx) => (
+                            <li key={hIdx} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="w-4 h-4 text-[#2c67ed] shrink-0 mt-0.5" />
+                              <span className={darkMode ? 'text-slate-300' : 'text-slate-700'}>
+                                {item}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="px-6 pb-6 sm:px-7 sm:pb-7 pt-0">
+                      <div className="pt-4 border-t border-slate-700/30">
+                        <div className="flex flex-wrap gap-1.5">
+                          {exp.tech.map((t) => (
+                            <span
+                              key={t}
+                              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold border ${
+                                darkMode
+                                  ? 'bg-white/5 border-slate-700 text-slate-300'
+                                  : 'bg-slate-100 border-slate-300 text-slate-700'
+                              }`}
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -298,39 +370,91 @@ export const EducationExperience: React.FC<EducationExperienceProps> = ({ darkMo
                 {ORGANIZATIONS.map((org, idx) => (
                   <div
                     key={idx}
-                    className={`p-6 sm:p-7 rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:border-indigo-500 hover:-translate-y-1 ${
+                    className={`rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:border-indigo-500 hover:-translate-y-1 overflow-hidden group ${
                       darkMode
-                        ? 'bg-[#0b122e]/90 border-indigo-500/30 text-white shadow-[0_0_20px_rgba(99,102,241,0.2)]'
-                        : 'bg-white/95 border-indigo-200 text-slate-800 shadow-[0_8px_25px_rgba(99,102,241,0.12)]'
+                        ? 'bg-[#0b122e]/90 border-indigo-500/30 text-white shadow-[0_0_20px_rgba(99,102,241,0.2)] hover:shadow-[0_0_30px_rgba(99,102,241,0.35)]'
+                        : 'bg-white/95 border-indigo-200 text-slate-800 shadow-[0_8px_25px_rgba(99,102,241,0.12)] hover:shadow-[0_12px_35px_rgba(99,102,241,0.22)]'
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white">
-                          Kepemimpinan
-                        </span>
-                        <span className={`text-xs font-semibold flex items-center gap-1 ${darkMode ? 'text-indigo-300' : 'text-indigo-700'}`}>
-                          <Calendar className="w-3.5 h-3.5" />
-                          {org.period}
-                        </span>
+                      {/* Organization Photo Showcase */}
+                      {org.imageUrl && (
+                        <div
+                          onClick={() =>
+                            setSelectedImage({
+                              url: org.imageUrl!,
+                              title: org.role,
+                              caption: org.imageCaption,
+                              role: org.organization,
+                            })
+                          }
+                          className="relative w-full h-48 sm:h-56 overflow-hidden bg-slate-900 cursor-pointer"
+                        >
+                          <img
+                            src={org.imageUrl}
+                            alt={org.imageCaption || org.role}
+                            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                              org.imageUrl.includes('wakil-ketua')
+                                ? 'object-[center_20%]'
+                                : 'object-center'
+                            }`}
+                            loading="lazy"
+                          />
+                          {/* Dramatic Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                          {/* Top-Right 'Lihat Foto' Button */}
+                          <div className="absolute top-3 right-3 opacity-90 group-hover:opacity-100 transition-opacity">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-lg">
+                              <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                              <span>Lihat Foto</span>
+                            </span>
+                          </div>
+
+                          {/* Image Caption at bottom */}
+                          {org.imageCaption && (
+                            <div className="absolute bottom-2.5 left-3.5 right-3.5 pointer-events-none flex items-center gap-1.5 text-xs font-medium text-white/95 drop-shadow">
+                              <Camera className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                              <span className="truncate">{org.imageCaption}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="p-6 sm:p-7">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-sm">
+                            Kepemimpinan
+                          </span>
+                          <span
+                            className={`text-xs font-semibold flex items-center gap-1 ${
+                              darkMode ? 'text-indigo-300' : 'text-indigo-700'
+                            }`}
+                          >
+                            <Calendar className="w-3.5 h-3.5" />
+                            {org.period}
+                          </span>
+                        </div>
+
+                        <h4 className="text-lg sm:text-xl font-extrabold text-[#2c67ed] mb-1">
+                          {org.role}
+                        </h4>
+                        <p className="text-sm font-semibold opacity-90 mb-4 flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-indigo-400 shrink-0" />
+                          {org.organization}
+                        </p>
+
+                        <ul className="space-y-2.5 text-xs sm:text-sm">
+                          {org.highlights.map((item, hIdx) => (
+                            <li key={hIdx} className="flex items-start gap-2.5">
+                              <span className="text-[#2c67ed] font-bold mt-0.5">•</span>
+                              <span className={darkMode ? 'text-slate-300' : 'text-slate-700'}>
+                                {item}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-
-                      <h4 className="text-lg sm:text-xl font-extrabold text-[#2c67ed] mb-1">
-                        {org.role}
-                      </h4>
-                      <p className="text-sm font-semibold opacity-90 mb-4 flex items-center gap-1.5">
-                        <Users className="w-4 h-4 text-indigo-400" />
-                        {org.organization}
-                      </p>
-
-                      <ul className="space-y-2.5 text-xs sm:text-sm">
-                        {org.highlights.map((item, hIdx) => (
-                          <li key={hIdx} className="flex items-start gap-2.5">
-                            <span className="text-[#2c67ed] font-bold mt-0.5">•</span>
-                            <span className={darkMode ? 'text-slate-300' : 'text-slate-700'}>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 ))}
@@ -395,6 +519,67 @@ export const EducationExperience: React.FC<EducationExperienceProps> = ({ darkMo
           )}
         </div>
       </div>
+
+      {/* Lightbox Modal for Full Image View */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl w-full bg-slate-900 border border-indigo-500/40 rounded-3xl overflow-hidden shadow-2xl cursor-default"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/60 hover:bg-black/90 text-white transition-colors border border-white/20"
+                aria-label="Tutup foto"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Photo Display */}
+              <div className="relative max-h-[75vh] flex items-center justify-center bg-black/70 p-2 sm:p-4">
+                <img
+                  src={selectedImage.url}
+                  alt={selectedImage.caption || selectedImage.title}
+                  className="max-h-[70vh] w-auto max-w-full object-contain rounded-xl shadow-lg"
+                />
+              </div>
+
+              {/* Caption & Info footer */}
+              <div className="p-4 sm:p-5 bg-slate-950/90 border-t border-slate-800 text-white">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h4 className="text-base sm:text-lg font-bold text-cyan-300 flex items-center gap-2">
+                      <Users className="w-4 h-4 text-indigo-400" />
+                      {selectedImage.title}
+                    </h4>
+                    {selectedImage.role && (
+                      <p className="text-xs text-slate-400">{selectedImage.role}</p>
+                    )}
+                  </div>
+                  {selectedImage.caption && (
+                    <span className="text-xs text-indigo-300 font-semibold px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-700/50 self-start sm:self-auto">
+                      {selectedImage.caption}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

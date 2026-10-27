@@ -137,9 +137,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ darkMode }) => {
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2c67ed] to-cyan-400 p-[2px] shadow-lg">
                   <img
-                    src={PERSONAL_INFO.photoUrl}
+                    key={darkMode ? 'dark-contact' : 'light-contact'}
+                    src={darkMode ? PERSONAL_INFO.photoDarkUrl : PERSONAL_INFO.photoLightUrl}
                     alt={PERSONAL_INFO.name}
-                    className="w-full h-full object-cover rounded-[14px]"
+                    className="w-full h-full object-cover rounded-[14px] transition-all duration-500"
                   />
                 </div>
                 <div>

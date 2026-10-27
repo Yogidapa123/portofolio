@@ -35,7 +35,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ darkMode, on
     { id: 'mobile' as CategoryFilter, label: 'Mobile App' },
     { id: 'uiux' as CategoryFilter, label: 'UI/UX Design' },
     { id: 'graphic' as CategoryFilter, label: 'Graphic Design' },
-    { id: 'admin' as CategoryFilter, label: 'Administrasi Digital' },
   ]
 
   const filteredProjects =

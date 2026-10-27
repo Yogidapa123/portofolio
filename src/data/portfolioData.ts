@@ -34,6 +34,8 @@ export const PERSONAL_INFO = {
   cvPdf: '/CV_Yogi_Pratama_Nusantara.pdf',
   portfolioPdf: '/Portofolio_Yogi_Pratama_Nusantara.pdf',
   photoUrl: '/yogi-photo.jpg',
+  photoDarkUrl: '/yogi-photo.jpg',
+  photoLightUrl: '/yogi-suit.jpg',
   aboutBio: `Fresh graduate Program Studi Informatika dari Universitas Muhammadiyah Malang dengan keahlian komprehensif di bidang Web Development, UI/UX Design, Graphic Design, dan Administrasi Digital.
 
 Berpengalaman merancang serta membangun aplikasi web full-stack (Laravel, PHP, MySQL) untuk instansi pemerintah seperti Diskominfo Kab. Malang, mendesain antarmuka pengguna untuk program digitalisasi pemantauan kesehatan posyandu, serta mengelola administrasi akademik dan perkantoran dengan tingkat akurasi tinggi.
@@ -43,11 +45,11 @@ Aktif memimpin organisasi mahasiswa berskala besar (Ketua HMIF UMM), menjalin ke
 
 export const STATS = [
   { value: '3.79', suffix: '/4.0', label: 'IPK Cum Laude' },
+  { value: '22', suffix: '+', label: 'Sertifikasi Resmi' },
   { value: '15', suffix: '+', label: 'Program Kerja Sukses' },
   { value: '20', suffix: '+', label: 'Mitra & Sponsor Korporasi' },
   { value: '100', suffix: '+', label: 'Berkas Kemahasiswaan' },
   { value: '15', suffix: '+', label: 'Desain Feed Instagram BUMN' },
-  { value: '30', suffix: '+', label: 'Kampus Informatika Se-Jatim' },
 ]
 
 export const EDUCATION = [
@@ -70,12 +72,25 @@ export const EDUCATION = [
   },
 ]
 
-export const WORK_EXPERIENCE = [
+export interface ExperienceItem {
+  role: string
+  company: string
+  period: string
+  type: string
+  imageUrl?: string
+  imageCaption?: string
+  highlights: string[]
+  tech: string[]
+}
+
+export const WORK_EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Web Developer (Internship)',
     company: 'DISKOMINFO Kab. Malang',
     period: 'Januari - Maret 2025',
     type: 'Magang',
+    imageUrl: '/experience/diskominfo-malang.jpg',
+    imageCaption: 'Tim Mahasiswa Magang Web Developer di Dinas Kominfo Kab. Malang',
     highlights: [
       'Merancang wireframe dan prototipe interaktif UI/UX menggunakan Figma untuk sistem peminjaman ruang rapat berbasis web, diselesaikan dalam 2 minggu dan mendapat approval langsung dari stakeholder.',
       'Membangun website full-stack sistem peminjaman ruang rapat dari desain Figma hingga implementasi production menggunakan framework Laravel (PHP) dan basis data MySQL dalam 1 bulan.',
@@ -88,6 +103,8 @@ export const WORK_EXPERIENCE = [
     company: 'RUMAH BUMN KOTA MALANG',
     period: 'April - Juni 2025',
     type: 'Magang',
+    imageUrl: '/experience/rumah-bumn.jpg',
+    imageCaption: 'Presentasi Hasil Proyek & Tim Magang Graphic Design di Rumah BUMN Kota Malang',
     highlights: [
       'Merancang 15+ konten visual kreatif feed & story menggunakan Canva untuk akun Instagram resmi Rumah BUMN Kota Malang dan Rumah BUMN Jatim.',
       'Membuat pamflet informasi, pengumuman pelatihan UMKM, serta poster hari besar nasional dengan penerapan konsisten layout, tipografi, dan color theory.',
@@ -101,6 +118,8 @@ export const WORK_EXPERIENCE = [
     company: 'Universitas Muhammadiyah Malang',
     period: 'Maret - April 2026',
     type: 'Part-Time',
+    imageUrl: '/experience/kemahasiswaan-umm.jpg',
+    imageCaption: 'Pelayanan Akademik & Rapat Koordinasi Biro Kemahasiswaan UMM',
     highlights: [
       'Mengelola administrasi berkas akademik Tata Usaha Kemahasiswaan — mencakup berkas Warek III, Ketua Kemahasiswaan, surat aktif kuliah, dan dokumen acara kemahasiswaan menangani 100+ berkas dengan tingkat akurasi tinggi.',
       'Mengoperasikan Microsoft Office (Word, Excel, PowerPoint) dan Google Workspace (Docs, Sheets, Drive) untuk digitalisasi arsip data kemahasiswaan.',
@@ -113,6 +132,8 @@ export const WORK_EXPERIENCE = [
     company: 'Universitas Muhammadiyah Malang',
     period: 'Oktober 2025 - Maret 2026',
     type: 'Part-Time',
+    imageUrl: '/experience/teknik-industri-umm.jpg',
+    imageCaption: 'Staf & Pembina Tata Usaha Program Studi Teknik Industri FT-UMM',
     highlights: [
       'Mengelola administrasi berkas akademik Tata Usaha Teknik Industri meliputi transkrip nilai, berkas yudisium, seminar proposal, sidang tugas akhir, cek plagiasi, dan magang (50+ berkas per bulan).',
       'Memindahkan sistem pencatatan berkas dari pencatatan manual fisik ke Google Sheets tersinkronisasi, mempermudah monitoring status berkas oleh Ketua Jurusan.',
@@ -122,11 +143,22 @@ export const WORK_EXPERIENCE = [
   },
 ]
 
-export const ORGANIZATIONS = [
+export interface OrganizationItem {
+  role: string
+  organization: string
+  period: string
+  imageUrl?: string
+  imageCaption?: string
+  highlights: string[]
+}
+
+export const ORGANIZATIONS: OrganizationItem[] = [
   {
     role: 'Ketua Himpunan',
     organization: 'Himpunan Mahasiswa Informatika (HMIF) UMM',
     period: 'Agustus 2024 - Juni 2025',
+    imageUrl: '/organizations/ketua-himpunan.jpg',
+    imageCaption: 'Fungsionaris HMIF FT-UMM Cyber Army Periode 2024-2025',
     highlights: [
       'Memimpin dan bertanggung jawab penuh atas arah gerak internal & eksternal organisasi dengan 40 fungsionaris aktif yang terbagi ke dalam 7 divisi (BPH, PSDM, PENMAS, Non-Akademik, Akademik, Ekraf, Kominfo).',
       'Mengoordinasikan dan mengeksekusi 15+ program kerja berskala jurusan hingga nasional dalam satu periode kepengurusan.',
@@ -139,6 +171,8 @@ export const ORGANIZATIONS = [
     role: 'Wakil Ketua Himpunan',
     organization: 'Himpunan Mahasiswa Informatika (HMIF) UMM',
     period: 'Agustus 2023 - Juni 2024',
+    imageUrl: '/organizations/wakil-ketua-himpunan.jpg',
+    imageCaption: 'Badan Pengurus Harian HMIF FT-UMM Periode 2023-2024',
     highlights: [
       'Mendampingi Ketua Himpunan dalam mengoordinasikan 50 fungsionaris, berfokus pada penguatan komunikasi internal dan resolusi kendala struktural.',
       'Memimpin forum evaluasi bulanan lintas bidang selama 6 bulan berturut-turut dan menghasilkan 5 rekomendasi perbaikan per divisi.',
@@ -150,6 +184,8 @@ export const ORGANIZATIONS = [
     role: 'Anggota Bidang Organisasi',
     organization: 'Permikomnas Wilayah IX (Jawa Timur)',
     period: 'September 2023 - Maret 2024',
+    imageUrl: '/organizations/anggota-permikomnas.jpg',
+    imageCaption: 'Permikomnas Wilayah IX Jawa Timur (Gedung F KH Ali Maksum)',
     highlights: [
       'Melakukan kajian serta verifikasi kesesuaian AD/ART dan Term of Reference (ToR) seluruh kegiatan himpunan mahasiswa informatika se-wilayah.',
       'Merencanakan dan mengoordinasikan agenda roadshow kunjungan ke 30+ kampus jurusan Informatika se-Jawa Timur.',
@@ -160,6 +196,8 @@ export const ORGANIZATIONS = [
     role: 'Anggota Bidang PSDM',
     organization: 'Ikatan Mahasiswa Kota Batu (IMABA)',
     period: 'November 2024 - Juni 2025',
+    imageUrl: '/organizations/anggota-psdm-imaba.jpg',
+    imageCaption: 'Musyawarah Besar Ikatan Mahasiswa Kota Batu (IMABA) 2024/2025',
     highlights: [
       'Merancang program kerja berbasis riset minat dan kebutuhan masyarakat Kota Batu pada sektor pendidikan daerah.',
       'Merumuskan program beasiswa pendidikan bagi pelajar dan mahasiswa Kota Batu mencakup panduan seleksi, strategi lolos, dan mentoring alumni penerima beasiswa.',
@@ -354,7 +392,35 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Figma Screens', value: '20+ Screens' },
     ],
   },
+  {
+    id: 'Web Perumahan Myskill',
+    title: 'Prototype Bottcamp Perumahan Myskill',
+    subtitle: 'Project Bootcamp',
+    category: 'uiux',
+    categoryLabel: 'UI/UX Design & Prototyping',
+    date: '2024',
+    accentColor: '#10b981',
+    mockupType: 'dual-mobile',
+    // GANTI LINK DI SINI:
+    previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2320-377&t=Q3j2mgevGIBB8Wal-1',
+    // GANTI GAMBAR DI SINI:
+    imageUrl: '/projects/Homepage.png',
+    description:
+      'E-commerce Perumahan Myskill untuk mempermudah calon pembeli dalam melihat daftar perumahan yang tersedia, melihat detail perumahan, dan melakukan pemesanan secara online.',
+    longDescription:
+      'Perancangan alur sistem e-commerce perumahan Myskill, mempermudah calon pembeli dalam melihat daftar perumahan yang tersedia, melihat detail perumahan, dan melakukan pemesanan secara online.',
+    features: [
+      'Sistem Pencarian Perumahan dengan filter harga, lokasi, dan tipe rumah',
+      'Tampilan detail perumahan dengan galeri foto, spesifikasi, dan fasilitas',
+    ],
+    tools: ['Figma', 'UI/UX Design', 'Design System', 'User Flow', 'Wireframing'],
+    stats: [
+      { label: 'user persona', value: 'Mahasiswa' },
+      { label: 'Figma Screens', value: '3 Screens' },
+    ],
+  },
 ]
+
 
 export const SKILL_CATEGORIES = [
   {

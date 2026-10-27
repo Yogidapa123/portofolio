@@ -15,6 +15,7 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { PERSONAL_INFO, STATS } from '../data/portfolioData'
+import { SpiderSplitPhoto } from './SpiderSplitPhoto'
 
 interface AboutProps {
   darkMode: boolean
@@ -68,93 +69,78 @@ export const About: React.FC<AboutProps> = ({ darkMode, onOpenCvModal, onOpenPor
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
-          {/* Left Column: Profile Card with Holographic Accents */}
+          {/* Left Column: Interactive Spider-Man Transform Photo & Specs */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-5 flex flex-col items-center"
+            className="lg:col-span-5 flex flex-col items-center gap-4 w-full"
           >
-            <div className="relative w-full max-w-sm">
-              {/* Outer Glow */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#2c67ed] via-blue-500 to-cyan-400 rounded-3xl blur-lg opacity-70" />
+            {/* Interactive Spider-Man Split Photo (Touch & Drag to Transform!) */}
+            <SpiderSplitPhoto darkMode={darkMode} />
 
-              <div
-                className={`relative rounded-3xl p-5 border transition-all ${
-                  darkMode
-                    ? 'bg-[#0b122e]/95 border-[#2c67ed]/50 text-white shadow-[0_0_30px_rgba(44,103,237,0.35)]'
-                    : 'bg-white/95 border-blue-200 text-slate-800 shadow-[0_10px_30px_rgba(44,103,237,0.2)]'
-                }`}
-              >
-                {/* Photo frame */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] mb-5 border border-blue-500/30">
-                  <img
-                    src={PERSONAL_INFO.photoUrl}
-                    alt={PERSONAL_INFO.name}
-                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <p className="font-bold text-base text-cyan-300">Yogi Pratama Nusantara</p>
-                    <p className="text-xs text-slate-300">S1 Teknik Informatika • UMM</p>
-                  </div>
+            {/* Key Personal Details & Fast Action Card */}
+            <div
+              className={`w-full max-w-sm rounded-[24px] p-4 sm:p-5 border transition-all ${
+                darkMode
+                  ? 'bg-[#0b122e]/95 border-[#2c67ed]/40 text-white shadow-[0_4px_25px_rgba(44,103,237,0.2)]'
+                  : 'bg-white/95 border-blue-200 text-slate-800 shadow-[0_6px_25px_rgba(44,103,237,0.15)]'
+              }`}
+            >
+              {/* Key Personal Details List */}
+              <div className="space-y-2.5 text-xs sm:text-sm">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
+                  <span className="opacity-70 flex items-center gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-[#2c67ed]" /> Pendidikan
+                  </span>
+                  <span className="font-bold text-[#2c67ed]">S1 Informatika (IPK 3.79)</span>
                 </div>
 
-                {/* Key Personal Details List */}
-                <div className="space-y-2.5 text-xs sm:text-sm">
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
-                    <span className="opacity-70 flex items-center gap-1.5">
-                      <GraduationCap className="w-4 h-4 text-[#2c67ed]" /> Pendidikan
-                    </span>
-                    <span className="font-bold text-[#2c67ed]">S1 Informatika (IPK 3.79)</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
-                    <span className="opacity-70 flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-[#2c67ed]" /> Domisili
-                    </span>
-                    <span className="font-semibold">Malang, Jawa Timur</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
-                    <span className="opacity-70 flex items-center gap-1.5">
-                      <Mail className="w-4 h-4 text-[#2c67ed]" /> Email
-                    </span>
-                    <span className="font-medium text-xs truncate max-w-[170px]">{PERSONAL_INFO.email}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="opacity-70 flex items-center gap-1.5">
-                      <Phone className="w-4 h-4 text-[#2c67ed]" /> WhatsApp
-                    </span>
-                    <span className="font-semibold text-emerald-400">{PERSONAL_INFO.phoneFormatted}</span>
-                  </div>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
+                  <span className="opacity-70 flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-[#2c67ed]" /> Domisili
+                  </span>
+                  <span className="font-semibold">Malang, Jawa Timur</span>
                 </div>
 
-                {/* Direct Action Link in Card */}
-                <div className="mt-5 pt-4 border-t border-slate-700/30 flex gap-2">
-                  <button
-                    onClick={onOpenCvModal}
-                    className="flex-1 py-2 px-3 rounded-xl text-xs font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(44,103,237,0.5)] transition-all cursor-pointer"
-                  >
-                    <FileCheck2 className="w-3.5 h-3.5" />
-                    Buka Dokumen CV
-                  </button>
-                  <a
-                    href={PERSONAL_INFO.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1 transition-all ${
-                      darkMode
-                        ? 'border-slate-700 hover:bg-white/10 text-slate-200'
-                        : 'border-slate-300 hover:bg-slate-100 text-slate-800'
-                    }`}
-                  >
-                    <span>LinkedIn</span>
-                    <ExternalLink className="w-3 h-3 opacity-70" />
-                  </a>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-700/30">
+                  <span className="opacity-70 flex items-center gap-1.5">
+                    <Mail className="w-4 h-4 text-[#2c67ed]" /> Email
+                  </span>
+                  <span className="font-medium text-xs truncate max-w-[170px]">{PERSONAL_INFO.email}</span>
                 </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="opacity-70 flex items-center gap-1.5">
+                    <Phone className="w-4 h-4 text-[#2c67ed]" /> WhatsApp
+                  </span>
+                  <span className="font-semibold text-emerald-400">{PERSONAL_INFO.phoneFormatted}</span>
+                </div>
+              </div>
+
+              {/* Direct Action Link in Card */}
+              <div className="mt-4 pt-3.5 border-t border-slate-700/30 flex gap-2">
+                <button
+                  onClick={onOpenCvModal}
+                  className="flex-1 py-2 px-3 rounded-xl text-xs font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(44,103,237,0.5)] transition-all cursor-pointer"
+                >
+                  <FileCheck2 className="w-3.5 h-3.5" />
+                  Buka Dokumen CV
+                </button>
+                <a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1 transition-all ${
+                    darkMode
+                      ? 'border-slate-700 hover:bg-white/10 text-slate-200'
+                      : 'border-slate-300 hover:bg-slate-100 text-slate-800'
+                  }`}
+                >
+                  <span>LinkedIn</span>
+                  <ExternalLink className="w-3 h-3 opacity-70" />
+                </a>
               </div>
             </div>
           </motion.div>

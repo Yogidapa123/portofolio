@@ -4,11 +4,18 @@ import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
 import { EducationExperience } from './components/EducationExperience'
+import { CertificatesSection } from './components/CertificatesSection'
 import { PortfolioSection } from './components/PortfolioSection'
 import { ContactSection } from './components/ContactSection'
 import { Footer } from './components/Footer'
 import { CVModal } from './components/CVModal'
 import { PortfolioDeckModal } from './components/PortfolioDeckModal'
+import { RocketBackToTop } from './components/RocketBackToTop'
+import { CuteSpaceCompanions } from './components/CuteSpaceCompanions'
+import { CosmicClickEffect } from './components/CosmicClickEffect'
+import { MarvelCompanions } from './components/MarvelCompanions'
+import { SpiderManUniverse } from './components/SpiderManUniverse'
+import { IronManUniverse } from './components/IronManUniverse'
 
 export default function App() {
   // Dark mode defaults to true for deep outer space theme
@@ -32,7 +39,7 @@ export default function App() {
 
   // Active section observer on scroll
   useEffect(() => {
-    const sectionIds = ['hero', 'about', 'experience', 'portfolio', 'contact']
+    const sectionIds = ['hero', 'about', 'experience', 'certificates', 'portfolio', 'contact']
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 250
       for (const id of sectionIds) {
@@ -85,6 +92,8 @@ export default function App() {
 
         <EducationExperience darkMode={darkMode} />
 
+        <CertificatesSection darkMode={darkMode} />
+
         <PortfolioSection
           darkMode={darkMode}
           onOpenPortfolioModal={() => setIsPortfolioModalOpen(true)}
@@ -95,6 +104,14 @@ export default function App() {
 
       {/* Galaxy Footer */}
       <Footer darkMode={darkMode} />
+
+      {/* Cute Interactive Space & Marvel Additions */}
+      <CosmicClickEffect darkMode={darkMode} />
+      <CuteSpaceCompanions darkMode={darkMode} />
+      <MarvelCompanions darkMode={darkMode} />
+      <SpiderManUniverse darkMode={darkMode} />
+      <IronManUniverse darkMode={darkMode} />
+      <RocketBackToTop darkMode={darkMode} />
 
       {/* Curriculum Vitae Modal */}
       <CVModal
