@@ -374,6 +374,8 @@ export const PROJECTS: ProjectItem[] = [
     mockupType: 'dual-mobile',
     // GANTI LINK DI SINI:
     previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2085-1581&t=fgTAWsVxiiG9zPzb-1',
+    
+    githubUrl: 'https://github.com/Yogidapa123/SmarttimeNew.git',
     // GANTI GAMBAR DI SINI:
     imageUrl: '/projects/smarttime.png',
     description:
