@@ -10,7 +10,7 @@ import {
   GraduationCap,
   ChevronDown,
 } from 'lucide-react'
-import { LinkedinIcon } from './SocialIcons'
+import { LinkedinIcon, GithubIcon } from './SocialIcons'
 import { PERSONAL_INFO } from '../data/portfolioData'
 import { InteractiveLanyardBadge } from './InteractiveLanyardBadge'
 
@@ -168,6 +168,22 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onOpenCvModal, onOpenPortf
                 <Sparkles className="w-4 h-4 text-cyan-200" />
               </button>
 
+              {/* GitHub Button */}
+              <a
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`px-5 py-3 rounded-xl font-semibold text-sm sm:text-base border flex items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
+                  darkMode
+                    ? 'bg-[#12172a]/90 border-slate-700 text-slate-200 hover:bg-[#1c243f] hover:border-slate-500 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 hover:shadow-[0_4px_15px_rgba(0,0,0,0.1)]'
+                }`}
+                title="Kunjungi Profil GitHub Yogidapa123"
+              >
+                <GithubIcon className="w-5 h-5 text-current" />
+                <span>GitHub</span>
+              </a>
+
               {/* LinkedIn Button */}
               <a
                 href={PERSONAL_INFO.linkedin}
@@ -180,7 +196,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onOpenCvModal, onOpenPortf
                 }`}
               >
                 <LinkedinIcon className="w-5 h-5 text-[#2c67ed]" />
-                <span>LinkedIn Profile</span>
+                <span>LinkedIn</span>
               </a>
 
               {/* Portfolio Presentation Deck Button */}

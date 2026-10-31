@@ -8,7 +8,7 @@ import {
   Heart,
   ChevronUp,
 } from 'lucide-react'
-import { LinkedinIcon, InstagramIcon } from './SocialIcons'
+import { LinkedinIcon, InstagramIcon, GithubIcon } from './SocialIcons'
 import { PERSONAL_INFO } from '../data/portfolioData'
 
 interface FooterProps {
@@ -43,6 +43,21 @@ export const Footer: React.FC<FooterProps> = ({ darkMode }) => {
 
           {/* Social Links */}
           <div className="flex items-center gap-3">
+            {/* GitHub */}
+            <a
+              href={PERSONAL_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`p-3 rounded-2xl border transition-all duration-300 hover:scale-110 ${
+                darkMode
+                  ? 'bg-white/5 border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]'
+                  : 'bg-white border-slate-200 text-slate-700 hover:text-black hover:border-slate-400'
+              }`}
+              title="GitHub Profile - Yogidapa123"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </a>
+
             <a
               href={PERSONAL_INFO.linkedin}
               target="_blank"

@@ -11,7 +11,7 @@ import {
   Copy,
   ExternalLink,
 } from 'lucide-react'
-import { LinkedinIcon, InstagramIcon } from './SocialIcons'
+import { LinkedinIcon, InstagramIcon, GithubIcon } from './SocialIcons'
 import { PERSONAL_INFO } from '../data/portfolioData'
 
 interface ContactSectionProps {
@@ -314,18 +314,43 @@ Apakah Anda memiliki waktu luang untuk berdiskusi? Terima kasih!`
               </div>
             </div>
 
-            {/* Social Media Link Cards */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Social Media Link Cards (GitHub, LinkedIn, Instagram) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* GitHub */}
+              <a
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3.5 sm:p-4 rounded-2xl border flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
+                  darkMode
+                    ? 'bg-[#0b122e]/90 border-slate-700/80 hover:border-slate-500 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                    : 'bg-white/95 border-slate-200 hover:border-slate-400 hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)]'
+                }`}
+                title="Kunjungi Profil GitHub Yogidapa123"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-xl bg-slate-800/80 text-white border border-slate-700">
+                    <GithubIcon className="w-5 h-5 text-current" />
+                  </div>
+                  <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div>
+                  <div className="text-xs font-extrabold text-white">GitHub</div>
+                  <div className="text-[11px] opacity-70 truncate">{PERSONAL_INFO.githubHandle}</div>
+                </div>
+              </a>
+
               {/* LinkedIn */}
               <a
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-4 rounded-2xl border flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
+                className={`p-3.5 sm:p-4 rounded-2xl border flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
                   darkMode
                     ? 'bg-[#0b122e]/90 border-blue-500/40 hover:border-blue-400 hover:shadow-[0_0_20px_rgba(44,103,237,0.4)]'
                     : 'bg-white/95 border-blue-200 hover:border-blue-400 hover:shadow-[0_6px_20px_rgba(44,103,237,0.2)]'
                 }`}
+                title="Kunjungi Profil LinkedIn"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="p-2 rounded-xl bg-[#2c67ed]/20 text-[#2c67ed]">
@@ -344,11 +369,12 @@ Apakah Anda memiliki waktu luang untuk berdiskusi? Terima kasih!`
                 href={PERSONAL_INFO.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-4 rounded-2xl border flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
+                className={`p-3.5 sm:p-4 rounded-2xl border flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
                   darkMode
                     ? 'bg-[#0b122e]/90 border-rose-500/30 hover:border-rose-400 hover:shadow-[0_0_20px_rgba(244,63,94,0.3)]'
                     : 'bg-white/95 border-rose-200 hover:border-rose-400 hover:shadow-[0_6px_20px_rgba(244,63,94,0.2)]'
                 }`}
+                title="Kunjungi Profil Instagram"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="p-2 rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-indigo-600 text-white">

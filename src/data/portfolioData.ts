@@ -54,6 +54,8 @@ export const PERSONAL_INFO = {
   phone: '+6283105247681',
   phoneFormatted: '+62 831-0524-7681',
   location: 'Malang, Jawa Timur, Indonesia (65323)',
+  github: 'https://github.com/Yogidapa123',
+  githubHandle: 'Yogidapa123',
   linkedin: 'https://www.linkedin.com/in/yogipratamanusantara',
   instagram: 'https://instagram.com/yyogi_',
   instagramHandle: '@yyogi_',

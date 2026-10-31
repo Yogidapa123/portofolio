@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { PERSONAL_INFO, STATS } from '../data/portfolioData'
 import { SpiderSplitPhoto } from './SpiderSplitPhoto'
+import { GithubIcon } from './SocialIcons'
 
 interface AboutProps {
   darkMode: boolean
@@ -129,14 +130,29 @@ export const About: React.FC<AboutProps> = ({ darkMode, onOpenCvModal, onOpenPor
                   Buka Dokumen CV
                 </button>
                 <a
-                  href={PERSONAL_INFO.linkedin}
+                  href={PERSONAL_INFO.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2 px-2.5 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1.5 transition-all ${
                     darkMode
                       ? 'border-slate-700 hover:bg-white/10 text-slate-200'
                       : 'border-slate-300 hover:bg-slate-100 text-slate-800'
                   }`}
+                  title="Kunjungi Profil GitHub Yogidapa123"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`py-2 px-2.5 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1 transition-all ${
+                    darkMode
+                      ? 'border-slate-700 hover:bg-white/10 text-slate-200'
+                      : 'border-slate-300 hover:bg-slate-100 text-slate-800'
+                  }`}
+                  title="Kunjungi Profil LinkedIn"
                 >
                   <span>LinkedIn</span>
                   <ExternalLink className="w-3 h-3 opacity-70" />
