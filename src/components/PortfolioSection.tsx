@@ -14,8 +14,9 @@ import {
   Grid,
   X,
 } from 'lucide-react'
-import { PROJECTS, ProjectItem } from '../data/portfolioData'
+import { PROJECTS, ProjectItem, getProjectLinks } from '../data/portfolioData'
 import { ProjectModal } from './ProjectModal'
+import { GithubIcon, FigmaIcon } from './SocialIcons'
 
 interface PortfolioSectionProps {
   darkMode: boolean
@@ -530,32 +531,73 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ darkMode, on
                     </div>
                   </div>
 
-                  {/* Actions: Direct Link + Modal */}
-                  <div className="pt-4 border-t border-slate-700/30 flex items-center gap-2">
+                  {/* Actions: Direct Links (Figma & GitHub) + Modal */}
+                  <div className="pt-4 border-t border-slate-700/30 flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => setActiveModalProject(project)}
-                      className="flex-1 py-2 px-3 rounded-xl text-xs font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(44,103,237,0.45)] transition-all cursor-pointer"
+                      className="flex-1 min-w-[110px] py-2 px-3 rounded-xl text-xs font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(44,103,237,0.45)] transition-all cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>Detail Mockup</span>
                     </button>
 
-                    {project.previewUrl && (
-                      <a
-                        href={project.previewUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                          darkMode
-                            ? 'border-[#2c67ed]/50 bg-blue-950/40 text-cyan-300 hover:bg-[#2c67ed] hover:text-white'
-                            : 'border-blue-300 bg-blue-50 text-[#2c67ed] hover:bg-[#2c67ed] hover:text-white'
-                        }`}
-                        title="Buka Link Proyek Ini"
-                      >
-                        <span>Buka Link</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
+                    {(() => {
+                      const links = getProjectLinks(project)
+                      return (
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          {links.figma && (
+                            <a
+                              href={links.figma}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                                darkMode
+                                  ? 'border-purple-500/40 bg-purple-950/40 text-purple-300 hover:bg-purple-600 hover:text-white hover:border-purple-500'
+                                  : 'border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white'
+                              }`}
+                              title="Buka Desain Figma Prototype"
+                            >
+                              <FigmaIcon className="w-3.5 h-3.5" />
+                              <span>Figma</span>
+                            </a>
+                          )}
+
+                          {links.github && (
+                            <a
+                              href={links.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                                darkMode
+                                  ? 'border-slate-700 bg-slate-900/80 text-slate-200 hover:bg-white/20 hover:text-white'
+                                  : 'border-slate-300 bg-slate-100 text-slate-800 hover:bg-slate-800 hover:text-white'
+                              }`}
+                              title="Buka Repository GitHub"
+                            >
+                              <GithubIcon className="w-3.5 h-3.5" />
+                              <span>GitHub</span>
+                            </a>
+                          )}
+
+                          {links.preview && (
+                            <a
+                              href={links.preview}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                                darkMode
+                                  ? 'border-[#2c67ed]/50 bg-blue-950/40 text-cyan-300 hover:bg-[#2c67ed] hover:text-white'
+                                  : 'border-blue-300 bg-blue-50 text-[#2c67ed] hover:bg-[#2c67ed] hover:text-white'
+                              }`}
+                              title="Buka Tautan Proyek Ini"
+                            >
+                              <span>{links.preview.includes('drive.google') ? 'Drive' : 'Buka Link'}</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          )}
+                        </div>
+                      )
+                    })()}
                   </div>
                 </div>
               </motion.div>

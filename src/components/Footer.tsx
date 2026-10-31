@@ -72,19 +72,25 @@ export const Footer: React.FC<FooterProps> = ({ darkMode }) => {
             </a>
 
             <a
-              href={`mailto:${PERSONAL_INFO.email}`}
+              href={`mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
+                '[Inkuiri Portofolio] Peluang Kerja Sama / Rekrutmen - Yogi Pratama Nusantara'
+              )}&body=${encodeURIComponent(
+                `Halo Yogi Pratama Nusantara,\n\nSaya melihat website portofolio profesional Anda dan tertarik untuk mendiskusikan peluang kerja sama / rekrutmen.\n\nBerikut informasi saya:\n• Nama Pengirim:\n• Instansi / Perusahaan:\n• Pesan / Kebutuhan:\n\nTerima kasih!`
+              )}`}
               className={`p-3 rounded-2xl border transition-all duration-300 hover:scale-110 ${
                 darkMode
                   ? 'bg-white/5 border-slate-700 text-slate-300 hover:text-cyan-400 hover:border-cyan-500'
                   : 'bg-white border-blue-200 text-slate-700 hover:text-[#2c67ed]'
               }`}
-              title="Email"
+              title="Kirim Email ke Yogi Pratama Nusantara"
             >
               <Mail className="w-4 h-4" />
             </a>
 
             <a
-              href={`https://wa.me/6283105247681`}
+              href={`https://wa.me/6283105247681?text=${encodeURIComponent(
+                `Halo Yogi Pratama Nusantara,\n\nPerkenalkan, saya melihat website portofolio profesional Anda dan sangat tertarik dengan keahlian Anda di bidang Web Development & UI/UX Design.\n\nSaya ingin berdiskusi mengenai peluang kerja sama / proyek / lowongan pekerjaan. Apakah Anda memiliki waktu luang untuk berdiskusi? Terima kasih!`
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className={`p-3 rounded-2xl border transition-all duration-300 hover:scale-110 ${
@@ -92,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode }) => {
                   ? 'bg-white/5 border-slate-700 text-slate-300 hover:text-emerald-400 hover:border-emerald-500'
                   : 'bg-white border-emerald-200 text-slate-700 hover:text-emerald-600'
               }`}
-              title="WhatsApp"
+              title="Hubungi via WhatsApp"
             >
               <Phone className="w-4 h-4" />
             </a>

@@ -13,8 +13,34 @@ export interface ProjectItem {
   mockupType: 'laptop' | 'mobile' | 'dual-mobile' | 'instagram' | 'apparel' | 'dashboard'
   imageUrl?: string // Jalur gambar proyek (contoh: '/projects/proyek-1.png' di folder public)
   previewUrl?: string // Link tujuan saat proyek diklik (contoh: website, Figma, atau GitHub)
-  githubUrl?: string
+  figmaUrl?: string // Link khusus Figma prototype
+  githubUrl?: string // Link khusus GitHub repository
   accentColor: string
+}
+
+export interface ProjectLinks {
+  figma?: string
+  github?: string
+  preview?: string
+}
+
+export function getProjectLinks(project: ProjectItem): ProjectLinks {
+  const figma =
+    project.figmaUrl ||
+    (project.previewUrl && project.previewUrl.includes('figma.com') ? project.previewUrl : undefined)
+
+  const github =
+    project.githubUrl ||
+    (project.previewUrl && project.previewUrl.includes('github.com') ? project.previewUrl : undefined)
+
+  const preview =
+    project.previewUrl &&
+    !project.previewUrl.includes('figma.com') &&
+    !project.previewUrl.includes('github.com')
+      ? project.previewUrl
+      : undefined
+
+  return { figma, github, preview }
 }
 
 export const PERSONAL_INFO = {
@@ -217,9 +243,9 @@ export const PROJECTS: ProjectItem[] = [
     mockupType: 'laptop',
     // GANTI LINK DI SINI:
     previewUrl: 'https://github.com/Yogidapa123/PKPL.git',
+    githubUrl: 'https://github.com/Yogidapa123/PKPL.git',
     // GANTI GAMBAR DI SINI (simpan file di folder public/):
-    imageUrl: '/projects/Diskominfo.png', 
-    githubUrl: '',
+    imageUrl: '/projects/Diskominfo.png',
     description:
       'Aplikasi web full-stack untuk pengelolaan reservasi ruang rapat 5 divisi Diskominfo dengan notifikasi otomatis & integrasi jadwal WhatsApp.',
     longDescription:
@@ -250,9 +276,9 @@ export const PROJECTS: ProjectItem[] = [
     mockupType: 'mobile',
     // GANTI LINK DI SINI:
     previewUrl: 'https://github.com/Yogidapa123/E-commerce-Snack.git',
+    githubUrl: 'https://github.com/Yogidapa123/E-commerce-Snack.git',
     // GANTI GAMBAR DI SINI:
     imageUrl: '/projects/snack.png',
-    githubUrl: '',
     description:
       'Aplikasi mobile Flutter untuk digitalisasi pemesanan snack, katalog harga stok real-time, keranjang belanja dan pembukuan transaksi otomatis.',
     longDescription:
@@ -282,6 +308,7 @@ export const PROJECTS: ProjectItem[] = [
     mockupType: 'dual-mobile',
     // GANTI LINK DI SINI (misal link Figma prototype):
     previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2012-2&t=fgTAWsVxiiG9zPzb-1',
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2012-2&t=fgTAWsVxiiG9zPzb-1',
     // GANTI GAMBAR DI SINI:
     imageUrl: '/projects/posyandu.png',
     description:
@@ -365,18 +392,18 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'SMART TIME',
-    title: 'Prototype Sistem Penjadwalan Tugas',
-    subtitle: 'Project Mata Kuliah',
+    title: 'Prototype Sistem Penjadwalan Tugas (Smart-Time)',
+    subtitle: 'Project Mata Kuliah & Prototyping',
     category: 'uiux',
     categoryLabel: 'UI/UX Design & Prototyping',
     date: '2025',
     accentColor: '#10b981',
     mockupType: 'dual-mobile',
-    // GANTI LINK DI SINI:
+    // TAUTAN FIGMA & GITHUB:
     previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2085-1581&t=fgTAWsVxiiG9zPzb-1',
-    
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2085-1581&t=fgTAWsVxiiG9zPzb-1',
     githubUrl: 'https://github.com/Yogidapa123/SmarttimeNew.git',
-    // GANTI GAMBAR DI SINI:
+    // GAMBAR MOCKUP:
     imageUrl: '/projects/smarttime.png',
     description:
       'Penjadwalan Mahasiswa untuk mengatur dalam penugasan dari pencatatan waktu sampai tugas itu selesai agar mahasiswa dapat mengumpulkan tugas dengan tepat waktu.',
@@ -388,10 +415,11 @@ export const PROJECTS: ProjectItem[] = [
       'Progess pengerjaan tugas dapat dilihat secara real-time',
       'Penanganan tugas yang sudah selesai dapat diarsipkan untuk referensi kedepannya',
     ],
-    tools: ['Figma', 'UI/UX Design', 'Design System', 'User Flow', 'Wireframing'],
+    tools: ['Figma', 'GitHub', 'UI/UX Design', 'Flutter / Mobile', 'Design System', 'User Flow', 'Wireframing'],
     stats: [
-      { label: 'user persona', value: 'Mahasiswa' },
+      { label: 'User Persona', value: 'Mahasiswa' },
       { label: 'Figma Screens', value: '20+ Screens' },
+      { label: 'Repository', value: 'GitHub Open' },
     ],
   },
   {
@@ -405,6 +433,7 @@ export const PROJECTS: ProjectItem[] = [
     mockupType: 'dual-mobile',
     // GANTI LINK DI SINI:
     previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2320-377&t=Q3j2mgevGIBB8Wal-1',
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2320-377&t=Q3j2mgevGIBB8Wal-1',
     // GANTI GAMBAR DI SINI:
     imageUrl: '/projects/Homepage.png',
     description:
