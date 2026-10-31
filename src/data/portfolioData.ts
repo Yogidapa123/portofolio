@@ -216,7 +216,7 @@ export const PROJECTS: ProjectItem[] = [
     accentColor: '#2c67ed',
     mockupType: 'laptop',
     // GANTI LINK DI SINI:
-    previewUrl: 'https://github.com/Yogidapa123/Website-Ruang-Rapat.git',
+    previewUrl: 'https://github.com/Yogidapa123/PKPL.git',
     // GANTI GAMBAR DI SINI (simpan file di folder public/):
     imageUrl: '/projects/Diskominfo.png', 
     githubUrl: '',
