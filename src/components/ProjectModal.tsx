@@ -10,6 +10,7 @@ import {
   FileText,
   Eye,
   Code2,
+  Globe,
 } from 'lucide-react'
 import { GithubIcon, FigmaIcon } from './SocialIcons'
 import { ProjectItem, getProjectLinks } from '../data/portfolioData'
@@ -78,8 +79,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
           <div className="p-5 sm:p-7 max-h-[72vh] overflow-y-auto space-y-6">
             {/* Media Section: Switch between Image and Live Figma Embed if available */}
             <div>
-              {links.figma && project.imageUrl && (
-                <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                {links.figma && project.imageUrl ? (
                   <div className="flex items-center p-1 rounded-xl bg-slate-800/80 border border-slate-700/80 text-xs font-bold">
                     <button
                       onClick={() => setActiveMediaTab('image')}
@@ -104,18 +105,41 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
                       <span>Live Figma Canvas</span>
                     </button>
                   </div>
+                ) : (
+                  <div className="text-xs font-bold text-[#2c67ed] flex items-center gap-1.5">
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Mockup Tampilan Proyek</span>
+                  </div>
+                )}
 
-                  <a
-                    href={links.figma}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 transition-colors"
-                  >
-                    <span>Buka Tab Figma</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                <div className="flex flex-wrap items-center gap-2">
+                  {links.website && (
+                    <a
+                      href={links.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-950/40 border border-cyan-500/40 transition-colors"
+                      title="Buka Website Langsung"
+                    >
+                      <Globe className="w-3.5 h-3.5" />
+                      <span>Website ({links.website.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+
+                  {links.figma && (
+                    <a
+                      href={links.figma}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 transition-colors"
+                    >
+                      <span>Buka Tab Figma</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
                 </div>
-              )}
+              </div>
 
               {/* Media Display Container */}
               {activeMediaTab === 'figma' && links.figma ? (
@@ -140,8 +164,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
               ) : null}
             </div>
 
-            {/* Direct Links Section: Highlights both Figma & GitHub */}
-            {(links.figma || links.github || links.preview) && (
+            {/* Direct Links Section: Highlights Website, GitHub, and Figma separately */}
+            {(links.website || links.github || links.figma || links.drive) && (
               <div
                 className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                   darkMode
@@ -151,10 +175,74 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
               >
                 <h4 className="text-xs font-bold uppercase tracking-wider text-[#2c67ed] mb-3 flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-                  <span>Akses Langsung & Sumber Proyek (Figma / GitHub)</span>
+                  <span>Tautan & Sumber Proyek Terpisah (Website, GitHub, & Figma)</span>
                 </h4>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {/* Website Live Direct Card */}
+                  {links.website && (
+                    <a
+                      href={links.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 group transition-all duration-300 ${
+                        darkMode
+                          ? 'bg-[#0a1b36]/90 border-cyan-500/40 hover:border-cyan-400 hover:bg-[#0c2347] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]'
+                          : 'bg-white border-cyan-200 hover:border-cyan-400 hover:shadow-md'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                          <Globe className="w-5 h-5 text-cyan-400" />
+                        </div>
+                        <div>
+                          <div className="text-xs sm:text-sm font-bold flex items-center gap-1.5 text-cyan-400 group-hover:text-cyan-300">
+                            <span>Website Live</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-semibold">
+                              Online
+                            </span>
+                          </div>
+                          <p className="text-[11px] opacity-70 truncate max-w-[150px]">
+                            {links.website.replace(/^https?:\/\//, '')}
+                          </p>
+                        </div>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+                    </a>
+                  )}
+
+                  {/* GitHub Direct Card */}
+                  {links.github && (
+                    <a
+                      href={links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 group transition-all duration-300 ${
+                        darkMode
+                          ? 'bg-[#141b2a]/90 border-slate-700/80 hover:border-blue-400/60 hover:bg-[#1a2336] hover:shadow-[0_0_20px_rgba(44,103,237,0.25)]'
+                          : 'bg-white border-slate-200 hover:border-slate-400 hover:shadow-md'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-slate-500/15 border border-slate-500/30 flex items-center justify-center shrink-0">
+                          <GithubIcon className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-xs sm:text-sm font-bold flex items-center gap-1.5 text-blue-400 group-hover:text-blue-300">
+                            <span>GitHub Repo</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-semibold">
+                              Code
+                            </span>
+                          </div>
+                          <p className="text-[11px] opacity-70 truncate max-w-[150px]">
+                            {links.github.replace('https://github.com/', '')}
+                          </p>
+                        </div>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+                    </a>
+                  )}
+
                   {/* Figma Direct Card */}
                   {links.figma && (
                     <a
@@ -178,51 +266,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
                               UI/UX
                             </span>
                           </div>
-                          <p className="text-[11px] opacity-70">
-                            Buka desain interaktif di aplikasi Figma
-                          </p>
+                          <p className="text-[11px] opacity-70">Desain antarmuka interaktif</p>
                         </div>
                       </div>
                       <ExternalLink className="w-4 h-4 text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                     </a>
                   )}
 
-                  {/* GitHub Direct Card */}
-                  {links.github && (
+                  {/* Google Drive Card */}
+                  {links.drive && (
                     <a
-                      href={links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 group transition-all duration-300 ${
-                        darkMode
-                          ? 'bg-[#141b2a]/90 border-slate-700/80 hover:border-blue-400/60 hover:bg-[#1a2336] hover:shadow-[0_0_20px_rgba(44,103,237,0.25)]'
-                          : 'bg-white border-slate-200 hover:border-slate-400 hover:shadow-md'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-slate-500/15 border border-slate-500/30 flex items-center justify-center shrink-0">
-                          <GithubIcon className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="text-xs sm:text-sm font-bold flex items-center gap-1.5 text-blue-400 group-hover:text-blue-300">
-                            <span>GitHub Repository</span>
-                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-semibold">
-                              Source Code
-                            </span>
-                          </div>
-                          <p className="text-[11px] opacity-70">
-                            Akses kode sumber & implementasi GitHub
-                          </p>
-                        </div>
-                      </div>
-                      <ExternalLink className="w-4 h-4 text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
-                    </a>
-                  )}
-
-                  {/* Other Preview Card (e.g. Drive / Live website) */}
-                  {links.preview && (
-                    <a
-                      href={links.preview}
+                      href={links.drive}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 group transition-all duration-300 ${
@@ -237,13 +291,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
                         </div>
                         <div>
                           <div className="text-xs sm:text-sm font-bold text-cyan-400 group-hover:text-cyan-300">
-                            {links.preview.includes('drive.google')
-                              ? 'Google Drive Folder'
-                              : 'Live Website / Demo'}
+                            Google Drive Folder
                           </div>
-                          <p className="text-[11px] opacity-70">
-                            Lihat hasil kerja & aset proyek lengkap
-                          </p>
+                          <p className="text-[11px] opacity-70">Lihat aset & file dokumen</p>
                         </div>
                       </div>
                       <ExternalLink className="w-4 h-4 text-[#2c67ed] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
@@ -332,24 +382,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
             </div>
           </div>
 
-          {/* Modal Footer Actions: Both Figma & GitHub Buttons Available */}
+          {/* Modal Footer Actions: Separated Website, GitHub, Figma, Drive Buttons */}
           <div className="p-4 sm:p-5 border-t border-slate-700/30 flex flex-wrap items-center justify-between gap-3 bg-slate-900/60">
             <div className="text-xs opacity-70 hidden sm:block">
               Portofolio Yogi Pratama Nusantara • UMM
             </div>
 
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
-              {/* Figma Button */}
-              {links.figma && (
+              {/* Website Live Button */}
+              {links.website && (
                 <a
-                  href={links.figma}
+                  href={links.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#1e1e1e] hover:bg-black text-white border border-purple-500/50 flex items-center gap-2 shadow-[0_0_15px_rgba(162,89,255,0.35)] transition-all cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-500 text-white flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all cursor-pointer"
                 >
-                  <FigmaIcon className="w-4 h-4" />
-                  <span>Buka Figma</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+                  <Globe className="w-4 h-4" />
+                  <span>Kunjungi Website</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                 </a>
               )}
 
@@ -367,17 +417,42 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, da
                 </a>
               )}
 
-              {/* Other Preview Button */}
-              {links.preview && (
+              {/* Figma Button */}
+              {links.figma && (
+                <a
+                  href={links.figma}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#1e1e1e] hover:bg-black text-white border border-purple-500/50 flex items-center gap-2 shadow-[0_0_15px_rgba(162,89,255,0.35)] transition-all cursor-pointer"
+                >
+                  <FigmaIcon className="w-4 h-4" />
+                  <span>Buka Figma</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+                </a>
+              )}
+
+              {/* Google Drive Button */}
+              {links.drive && (
+                <a
+                  href={links.drive}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center gap-2 shadow-[0_0_20px_rgba(44,103,237,0.5)] transition-all cursor-pointer"
+                >
+                  <span>Buka Google Drive</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+
+              {/* Fallback Preview Button */}
+              {links.preview && !links.website && !links.github && !links.figma && !links.drive && (
                 <a
                   href={links.preview}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#2c67ed] hover:bg-blue-600 text-white flex items-center gap-2 shadow-[0_0_20px_rgba(44,103,237,0.5)] transition-all cursor-pointer"
                 >
-                  <span>
-                    {links.preview.includes('drive.google') ? 'Buka Google Drive' : 'Kunjungi Web'}
-                  </span>
+                  <span>Lihat Proyek</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
               )}

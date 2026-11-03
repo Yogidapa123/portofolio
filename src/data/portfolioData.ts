@@ -12,15 +12,19 @@ export interface ProjectItem {
   date: string
   mockupType: 'laptop' | 'mobile' | 'dual-mobile' | 'instagram' | 'apparel' | 'dashboard'
   imageUrl?: string // Jalur gambar proyek (contoh: '/projects/proyek-1.png' di folder public)
-  previewUrl?: string // Link tujuan saat proyek diklik (contoh: website, Figma, atau GitHub)
-  figmaUrl?: string // Link khusus Figma prototype
+  previewUrl?: string // Link tujuan umum saat proyek diklik (fallback)
+  websiteUrl?: string // Link khusus website live / deployment (contoh: 'https://yogi.page.gd/')
   githubUrl?: string // Link khusus GitHub repository
+  figmaUrl?: string // Link khusus Figma prototype
+  driveUrl?: string // Link khusus Google Drive
   accentColor: string
 }
 
 export interface ProjectLinks {
-  figma?: string
+  website?: string
   github?: string
+  figma?: string
+  drive?: string
   preview?: string
 }
 
@@ -33,14 +37,20 @@ export function getProjectLinks(project: ProjectItem): ProjectLinks {
     project.githubUrl ||
     (project.previewUrl && project.previewUrl.includes('github.com') ? project.previewUrl : undefined)
 
-  const preview =
-    project.previewUrl &&
-    !project.previewUrl.includes('figma.com') &&
-    !project.previewUrl.includes('github.com')
-      ? project.previewUrl
-      : undefined
+  const drive =
+    project.driveUrl ||
+    (project.previewUrl && project.previewUrl.includes('drive.google.com') ? project.previewUrl : undefined)
 
-  return { figma, github, preview }
+  const website =
+    project.websiteUrl ||
+    (project.previewUrl &&
+      !project.previewUrl.includes('figma.com') &&
+      !project.previewUrl.includes('github.com') &&
+      !project.previewUrl.includes('drive.google.com')
+        ? project.previewUrl
+        : undefined)
+
+  return { website, github, figma, drive, preview: website || drive || project.previewUrl }
 }
 
 export const PERSONAL_INFO = {
@@ -243,9 +253,11 @@ export const PROJECTS: ProjectItem[] = [
     date: 'Februari 2025',
     accentColor: '#2c67ed',
     mockupType: 'laptop',
-    // GANTI LINK DI SINI:
-    previewUrl: 'https://github.com/Yogidapa123/PKPL.git',
+    // TAUTAN TERPISAH: WEBSITE LIVE, GITHUB, DAN FIGMA
+    websiteUrl: 'https://yogi.page.gd/',
     githubUrl: 'https://github.com/Yogidapa123/PKPL.git',
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=21-2&t=B2GLQYVyvcw52sJy-1',
+    previewUrl: 'https://yogi.page.gd/',
     // GANTI GAMBAR DI SINI (simpan file di folder public/):
     imageUrl: '/projects/Diskominfo.png',
     description:
@@ -279,6 +291,7 @@ export const PROJECTS: ProjectItem[] = [
     // GANTI LINK DI SINI:
     previewUrl: 'https://github.com/Yogidapa123/E-commerce-Snack.git',
     githubUrl: 'https://github.com/Yogidapa123/E-commerce-Snack.git',
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2059-2645&t=B2GLQYVyvcw52sJy-1',
     // GANTI GAMBAR DI SINI:
     imageUrl: '/projects/snack.png',
     description:

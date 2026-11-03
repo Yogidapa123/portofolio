@@ -13,6 +13,7 @@ import {
   Calendar,
   Grid,
   X,
+  Globe,
 } from 'lucide-react'
 import { PROJECTS, ProjectItem, getProjectLinks } from '../data/portfolioData'
 import { ProjectModal } from './ProjectModal'
@@ -531,7 +532,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ darkMode, on
                     </div>
                   </div>
 
-                  {/* Actions: Direct Links (Figma & GitHub) + Modal */}
+                  {/* Actions: Direct Separate Links (Website, GitHub, Figma) + Modal */}
                   <div className="pt-4 border-t border-slate-700/30 flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => setActiveModalProject(project)}
@@ -544,24 +545,26 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ darkMode, on
                     {(() => {
                       const links = getProjectLinks(project)
                       return (
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          {links.figma && (
+                        <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                          {/* Live Website Button */}
+                          {links.website && (
                             <a
-                              href={links.figma}
+                              href={links.website}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                                 darkMode
-                                  ? 'border-purple-500/40 bg-purple-950/40 text-purple-300 hover:bg-purple-600 hover:text-white hover:border-purple-500'
-                                  : 'border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white'
+                                  ? 'border-cyan-500/50 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-600 hover:text-white hover:border-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                                  : 'border-cyan-400 bg-cyan-50 text-cyan-700 hover:bg-cyan-600 hover:text-white shadow-sm'
                               }`}
-                              title="Buka Desain Figma Prototype"
+                              title="Kunjungi Website Live / Production"
                             >
-                              <FigmaIcon className="w-3.5 h-3.5" />
-                              <span>Figma</span>
+                              <Globe className="w-3.5 h-3.5" />
+                              <span>Website</span>
                             </a>
                           )}
 
+                          {/* GitHub Repository Button */}
                           {links.github && (
                             <a
                               href={links.github}
@@ -569,30 +572,49 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ darkMode, on
                               rel="noopener noreferrer"
                               className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                                 darkMode
-                                  ? 'border-slate-700 bg-slate-900/80 text-slate-200 hover:bg-white/20 hover:text-white'
+                                  ? 'border-slate-700 bg-slate-900/80 text-slate-200 hover:bg-white/20 hover:text-white hover:border-slate-500'
                                   : 'border-slate-300 bg-slate-100 text-slate-800 hover:bg-slate-800 hover:text-white'
                               }`}
-                              title="Buka Repository GitHub"
+                              title="Buka Repository GitHub (Source Code)"
                             >
                               <GithubIcon className="w-3.5 h-3.5" />
                               <span>GitHub</span>
                             </a>
                           )}
 
-                          {links.preview && (
+                          {/* Figma Prototype Button */}
+                          {links.figma && (
                             <a
-                              href={links.preview}
+                              href={links.figma}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                                 darkMode
-                                  ? 'border-[#2c67ed]/50 bg-blue-950/40 text-cyan-300 hover:bg-[#2c67ed] hover:text-white'
+                                  ? 'border-purple-500/40 bg-purple-950/40 text-purple-300 hover:bg-purple-600 hover:text-white hover:border-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.2)]'
+                                  : 'border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white'
+                              }`}
+                              title="Buka Desain Figma Prototype (UI/UX)"
+                            >
+                              <FigmaIcon className="w-3.5 h-3.5" />
+                              <span>Figma</span>
+                            </a>
+                          )}
+
+                          {/* Google Drive Button */}
+                          {links.drive && (
+                            <a
+                              href={links.drive}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                                darkMode
+                                  ? 'border-blue-500/40 bg-blue-950/40 text-blue-300 hover:bg-[#2c67ed] hover:text-white'
                                   : 'border-blue-300 bg-blue-50 text-[#2c67ed] hover:bg-[#2c67ed] hover:text-white'
                               }`}
-                              title="Buka Tautan Proyek Ini"
+                              title="Buka File Google Drive"
                             >
-                              <span>{links.preview.includes('drive.google') ? 'Drive' : 'Buka Link'}</span>
                               <ExternalLink className="w-3.5 h-3.5" />
+                              <span>Drive</span>
                             </a>
                           )}
                         </div>
