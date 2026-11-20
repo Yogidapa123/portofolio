@@ -465,6 +465,34 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Figma Screens', value: '3 Screens' },
     ],
   },
+  {
+    id: 'Web Koperasi Merah Putih',
+    title: 'Prototype web Koperasi Merah Putih',
+    subtitle: 'Project',
+    category: 'uiux',
+    categoryLabel: 'UI/UX Design & Prototyping',
+    date: '2026',
+    accentColor: '#48b910',
+    mockupType: 'laptop',
+    // GANTI LINK DI SINI:
+    previewUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2085-1583&t=ihJsITpkHLSP9EQa-1',
+    figmaUrl: 'https://www.figma.com/design/o0zB6bVVvkz0d4vwiE7D66/Project-Yogi?node-id=2085-1583&t=ihJsITpkHLSP9EQa-1',
+    // GANTI GAMBAR DI SINI:
+    imageUrl: '/projects/web.png',
+    description:
+      'Website Koperasi Merah Putih untuk mempermudah calon anggota dalam melihat daftar outlet yang tersedia, melihat detail outlet, dan melakukan pemesanan secara online.',
+    longDescription:
+      'Perancangan alur sistem e-commerce koperasi Merah Putih, mempermudah calon anggota dalam melihat daftar outlet yang tersedia, melihat detail outlet, dan melakukan pemesanan secara online.',
+    features: [
+      'Sistem Pencarian Outlet dengan filter harga, lokasi, dan tipe produk',
+      'Tampilan detail outlet dengan galeri foto, spesifikasi, dan fasilitas',
+    ],
+    tools: ['Figma', 'UI/UX Design', 'Design System', 'User Flow', 'Wireframing'],
+    stats: [
+      { label: 'user persona', value: 'Anggota Koperasi' },
+      { label: 'Figma Screens', value: '20 Screens' },
+    ],
+  },
 ]
 
 
